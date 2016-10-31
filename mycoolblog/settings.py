@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'yb4(7)dj)lk!$6$3lh=vu$u!a38(ut!)80wwc%oio!j&8@wgp+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '.dmitrygorbachev.com',
+    'localost'
+]
 
 
 # Application definition
@@ -76,17 +79,28 @@ WSGI_APPLICATION = 'mycoolblog.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mycoolblog',
-        'USER': 'dimongor',
-        'PASSWORD': '222qqwwee',
-        'HOST': 'localhost',
-        'PORT': '',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'mycoolblog',
+            'USER': 'dimongor',
+            'PASSWORD': '222qqwwee',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
 
 
 # Internationalization
