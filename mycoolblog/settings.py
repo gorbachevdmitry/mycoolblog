@@ -26,8 +26,6 @@ SECRET_KEY = 'yb4(7)dj)lk!$6$3lh=vu$u!a38(ut!)80wwc%oio!j&8@wgp+'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '.dmitrygorbachev.com',
-    'localost'
 ]
 
 
